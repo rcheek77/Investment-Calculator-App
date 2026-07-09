@@ -77,7 +77,6 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 0 1rem; 
 }
 
 #header {
@@ -94,71 +93,11 @@ body {
   background-color: transparent;
 }
 
-/* Mobile First Layout (Default for small screens) */
-.header-container {
-  display: block;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1.5rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.header-logo {
-  width: 80px;         /* Smaller logo for mobile viewports */
-  height: auto;
-  margin-bottom: 1rem; /* Spacing between logo and text */
-}
-
-.header-text h1 {
-  font-size: 1.5rem;   /* Scaled-down typography for mobile */
-  margin: 0;
-  line-height: 1.2;
-  text-align: center;
-}
-
-/* Tablet & Desktop Viewports (Screens wider than 768px) */
-@media (min-width: 768px) {
-  .header-container {
-    flex-direction: row; /* Aligns logo and text side-by-side */
-    justify-content: flex-start;
-    text-align: left;
-    padding: 2rem 4rem;
-    gap: 1.5rem;        /* Native spacing between layout items */
-  }
-
-  .header-logo {
-    width: 120px;       /* Larger logo for desktop viewports */
-    margin-bottom: 0;   /* Removes the vertical mobile spacing */
-  }
-
-  .header-text h1 {
-    font-size: 2.25rem; /* Larger bold layout typography */
-  }
-}
-
-
-@keyframes flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-#subtitle {
-  animation: flash 1.5s infinite ease-in-out;
-  text-align: center;
-}
-
 h1,
 h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
-  line-height: 1.15;
-  letter-spacing: -0.02em; 
-  word-wrap: break-word;
-  word-break: break-word;
 }
 
 h1 {
@@ -192,4 +131,45 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+#user-input {
+  padding: 1rem;
+  border: 3px solid black;
+  margin: 2rem auto;
+  border-radius: 4px;
+  background: linear-gradient(180deg, purple, rgb(227, 178, 255))
+}
+
+#user-input label {
+  display: block;
+  margin-bottom: 0.25rem;
+  justify-content: center;
+}
+
+#user-input input {
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.form-actions {
+  color: #08060d;
+  background-color: rgb(199, 199, 199);
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 100px;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  padding: 5px 5px 5px 5px;
+  margin-top: 20px;
+}
+
+#results {
+  color: black;
 }
