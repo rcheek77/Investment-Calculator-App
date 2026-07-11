@@ -1,42 +1,32 @@
-import React, { useState } from 'react';
-import { 
-    calculateInvestmentResults, 
-    calculateMonthlyInvestmentResults, 
-    formatter 
-} from "../utilities/investment.js";
+import React from 'react';
+import { formatter } from "../utilities/investment.js";
 
-export function OutputData({ inputval }) {
-    const [viewMode, setViewMode] = useState('yearly');     // useState for toggling between yearly & monthly view
-
-    const annualData = calculateInvestmentResults(inputval);
-    const monthlyData = calculateMonthlyInvestmentResults(inputval);
+export function OutputData({ inputval, resdata, viewMode, onViewModeChange }) {
+    const initialInvestment = Number(inputval.begInvestment) || 0;
+    const annualInvestment = Number(inputval.annInvestment) || 0;
+    const totalYears = Number(inputval.yearlyInvestment) || 0;
 
     const isYearly = viewMode === 'yearly';
-    const activeData = isYearly ? annualData : monthlyData;
-
-    if (!activeData || activeData.length === 0) {
-        return <p style={{ textAlign: 'center' }}>No data available</p>;
+    
+    if (!resdata || resdata.length === 0) {
+        return <p style={{ textAlign: 'center', fontWeight: 'bold', margin: '2rem 0' }}>No data available</p>;
     }
 
-    const initialInvestment = inputval.begInvestment;
-
-    // Grab the final item from the active view
-    const finalItem = activeData[activeData.length - 1];
+    const finalItem = resdata[resdata.length - 1];
+    const finalEndingBalance = finalItem.valueEndOfYear;
     
-    // Both views now share the exact same financial totals
-    const finalTotalInvested = initialInvestment + (inputval.annInvestment * inputval.yearlyInvestment);
-    const finalTotalInterest = finalItem.valueEndOfYear - finalTotalInvested;
+    const finalTotalInvested = initialInvestment + (annualInvestment * totalYears);
+    const finalTotalInterest = finalEndingBalance - finalTotalInvested;
 
     return (
         <div className="output-container" style={{ width: '100%', maxWidth: '800px', margin: '2rem auto' }}>
             
-            {/* View Selection Controls */}
             <div className="view-toggle" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', gap: '10px' }}>
                 <button 
-                    onClick={() => setViewMode('yearly')}
+                    onClick={() => onViewModeChange('yearly')}
                     style={{
                         padding: '0.5rem 1.5rem',
-                        backgroundColor: isYearly ? 'rgb(236, 0, 236)' : '#e2e6ea',
+                        backgroundColor: isYearly ? 'rgb(80, 0, 80)' : '#e2e6ea',
                         color: isYearly ? 'white' : '#495057',
                         border: 'none',
                         borderRadius: '4px',
@@ -47,10 +37,10 @@ export function OutputData({ inputval }) {
                     Yearly Breakdown
                 </button>
                 <button 
-                    onClick={() => setViewMode('monthly')}
+                    onClick={() => onViewModeChange('monthly')}
                     style={{
                         padding: '0.5rem 1.5rem',
-                        backgroundColor: !isYearly ? 'rgb(236, 0, 236)' : '#e2e6ea',
+                        backgroundColor: !isYearly ? 'rgb(80, 0, 80)' : '#e2e6ea',
                         color: !isYearly ? 'white' : '#495057',
                         border: 'none',
                         borderRadius: '4px',
@@ -73,15 +63,15 @@ export function OutputData({ inputval }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {activeData.map((item) => {
+                    {resdata.map((item) => {
                         const steps = isYearly ? item.year : item.month;
-                        const depositPerStep = isYearly ? inputval.annInvestment : (inputval.annInvestment / 12);
+                        const depositPerStep = isYearly ? annualInvestment : (annualInvestment / 12);
                         
                         const totalAmountInvested = initialInvestment + (depositPerStep * steps);
                         const totalInterest = item.valueEndOfYear - totalAmountInvested;
 
                         return (
-                            <tr key={steps}>
+                            <tr key={`${viewMode}-${steps}`}>
                                 <td>{isYearly ? `Year ${item.year}` : `Month ${item.month}`}</td>
                                 <td>{formatter.format(item.valueEndOfYear)}</td>
                                 <td>{formatter.format(item.interest)}</td>
@@ -94,7 +84,7 @@ export function OutputData({ inputval }) {
                 <tfoot style={{ backgroundColor: '#f8f9fa', borderTop: '3px solid #dee2e6' }}>
                     <tr style={{ fontWeight: 'bold' }}>
                         <td>Total Summary</td>
-                        <td>{formatter.format(finalItem.valueEndOfYear)}</td>
+                        <td>{formatter.format(finalEndingBalance)}</td>
                         <td>—</td>
                         <td>{formatter.format(finalTotalInterest)}</td>
                         <td>{formatter.format(finalTotalInvested)}</td>
