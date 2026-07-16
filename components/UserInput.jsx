@@ -1,18 +1,6 @@
 import React from 'react'
 
-export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
-  const blockInvalidChars = (e) => {
-    if (['e', 'E', '-', '+'].includes(e.key)) {
-      e.preventDefault();
-    }
-  };
-
-  const blockDecimals = (e) => {
-    if (e.key === '.' || e.key === ',') {
-      e.preventDefault();
-    }
-  };
-
+export const UserInput = ({ inputCust, onChangeCustInput }) => {
   return (
     <section id='user-input'>
       <div className='input-group'>
@@ -21,9 +9,9 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
           <input 
             id="beg-invest"
             type="number" 
+            required 
             min="0"
-            value={inputCust.begInvestment ?? ''} 
-            onKeyDown={blockInvalidChars}
+            value={inputCust.begInvestment || ''} 
             onChange={(e) => onChangeCustInput('begInvestment', e.target.value)} 
           />
         </p>
@@ -33,9 +21,9 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
           <input 
             id="ann-invest"
             type="number" 
+            required 
             min="0"
-            value={inputCust.annInvestment ?? ''} 
-            onKeyDown={blockInvalidChars}
+            value={inputCust.annInvestment || ''} 
             onChange={(e) => onChangeCustInput('annInvestment', e.target.value)} 
           />
         </p>
@@ -45,10 +33,10 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
           <input 
             id="ret-invest"
             type="number" 
+            required 
             min="0"
             step="0.1"
-            value={inputCust.returnInvestment ?? ''} 
-            onKeyDown={blockInvalidChars}
+            value={inputCust.returnInvestment || ''} 
             onChange={(e) => onChangeCustInput('returnInvestment', e.target.value)} 
           />
         </p>
@@ -58,32 +46,13 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
           <input 
             id="year-invest"
             type="number" 
+            required 
             min="1"
             step="1"
-            value={inputCust.yearlyInvestment ?? ''} 
-            onKeyDown={(e) => { blockInvalidChars(e); blockDecimals(e); }}
+            value={inputCust.yearlyInvestment || ''} 
             onChange={(e) => onChangeCustInput('yearlyInvestment', e.target.value)} 
           />
         </p>
-      </div>
-
-      <div className="actions" style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
-        <button 
-          type="button" 
-          onClick={onResetInputs}
-          style={{
-            padding: '0.5rem 2rem',
-            backgroundColor: '#6c757d',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            fontSize: '1rem'
-          }}
-        >
-          Reset Values
-        </button>
       </div>
     </section>
   )
