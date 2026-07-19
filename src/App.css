@@ -193,3 +193,15 @@
   margin-top: 10px;
   color: black;
 }
+
+h1 {
+  font-size: 1.8rem; 
+  text-align: center;
+  padding: 10px;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
