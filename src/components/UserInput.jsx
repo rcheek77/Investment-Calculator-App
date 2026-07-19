@@ -13,7 +13,7 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
   };
 
   return (
-    <section id='user-input' style={{ maxWidth: '100%', margin: '0 auto', padding: '1rem' }}>
+    <section id='user-input' style={{ maxWidth: '100%', margin: '0 auto', padding: '1rem', marginTop: '10px' }}>
       <style>{`
         .input-group {
           display: grid;
@@ -41,7 +41,7 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
             id="beg-invest"
             type="number" 
             min="0"
-            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box', backgroundColor: 'lightgrey', borderRadius: '5px' }}
             value={inputCust.begInvestment ?? ''} 
             onKeyDown={(e) => validateKeyInput(e)}
             onChange={(e) => onChangeCustInput('begInvestment', e.target.value)} 
@@ -54,7 +54,7 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
             id="ann-invest"
             type="number" 
             min="0"
-            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box', backgroundColor: 'lightgrey', borderRadius: '5px' }}
             value={inputCust.annInvestment ?? ''} 
             onKeyDown={(e) => validateKeyInput(e)}
             onChange={(e) => onChangeCustInput('annInvestment', e.target.value)} 
@@ -68,7 +68,7 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
             type="number" 
             min="0"
             step="0.1"
-            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box', backgroundColor: 'lightgrey', borderRadius: '5px' }}
             value={inputCust.returnInvestment ?? ''} 
             onKeyDown={(e) => validateKeyInput(e)}
             onChange={(e) => onChangeCustInput('returnInvestment', e.target.value)} 
@@ -82,7 +82,7 @@ export const UserInput = ({ inputCust, onChangeCustInput, onResetInputs }) => {
             type="number" 
             min="1"
             step="1"
-            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box', backgroundColor: 'lightgrey', borderRadius: '5px' }}
             value={inputCust.yearlyInvestment ?? ''} 
             onKeyDown={(e) => validateKeyInput(e, false)}
             onChange={(e) => onChangeCustInput('yearlyInvestment', e.target.value)} 
